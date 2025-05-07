@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>실시간 투표 시스템</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .option { margin-bottom: 10px; }
+    .bar {
+      height: 20px;
+      background-color: #4caf50;
+      margin-top: 5px;
+      color: white;
+      text-align: right;
+      padding-right: 5px;
+    }
+    .summary {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h2>어떤 언어를 더 좋아하시나요?</h2>
+
+<div class="option">
+  <button onclick="vote('html')">1번</button>
+  <div class="bar" id="bar-html" style="width: 0%">0명</div>
+</div>
+
+<div class="option">
+  <button onclick="vote('js')">2번</button>
+  <div class="bar" id="bar-js" style="width: 0%">0명</div>
+</div>
+
+<div class="summary" id="summary">총 참여 인원: 0명</div>
+
+<script>
+  let votes = { html: 0, js: 0 };
+
+  function vote(option) {
+    votes[option]++;
+    updateUI();
+  }
+
+  function updateUI() {
+    const total = votes.html + votes.js;
+    const htmlRatio = total ? (votes.html / total * 100).toFixed(1) : 0;
+    const jsRatio = total ? (votes.js / total * 100).toFixed(1) : 0;
+
+    document.getElementById('bar-html').style.width = htmlRatio + '%';
+    document.getElementById('bar-html').textContent = `${votes.html}명`;
+
+    document.getElementById('bar-js').style.width = jsRatio + '%';
+    document.getElementById('bar-js').textContent = `${votes.js}명`;
+
+    document.getElementById('summary').textContent = `총 참여 인원: ${total}명`;
+  }
+</script>
+
+</body>
+</html>
